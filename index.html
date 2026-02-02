@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💖</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-family: Arial, sans-serif;
+  }
+
+  .box {
+    width: 90%;
+    max-width: 360px;
+    height: 260px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 22px;
+    color: #e60073;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+  }
+
+  button {
+    padding: 10px 22px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  #startBtn, #yes {
+    background: #ff4d88;
+    color: white;
+  }
+
+  #no {
+    background: #ddd;
+    color: black;
+    position: absolute;
+    left: 200px;
+    top: 160px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box" id="box">
+
+  <!-- STEP 1 -->
+  <div id="step1">
+    <h1>Enter your name 💕</h1>
+    <input type="text" id="nameInput" placeholder="Your name">
+    <br>
+    <button id="startBtn">Next 💖</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" style="display:none;">
+    <h1 id="question"></h1>
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 💔</button>
+  </div>
+
+</div>
+
+<script>
+  const step1 = document.getElementById("step1");
+  const step2 = document.getElementById("step2");
+  const startBtn = document.getElementById("startBtn");
+  const nameInput = document.getElementById("nameInput");
+  const question = document.getElementById("question");
+
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const box = document.getElementById("box");
+
+  startBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    if (!name) return alert("Please enter your name 💗");
+
+    question.innerHTML = `${name}, will you be my Valentine? 💘`;
+    step1.style.display = "none";
+    step2.style.display = "block";
+  });
+
+  function moveNo() {
+    const step = 35;
+
+    let x = noBtn.offsetLeft + (Math.random() > 0.5 ? step : -step);
+    let y = noBtn.offsetTop + (Math.random() > 0.5 ? step : -step);
+
+    const maxX = box.clientWidth - noBtn.offsetWidth;
+    const maxY = box.clientHeight - noBtn.offsetHeight;
+
+    if (x < 10) x = 10;
+    if (y < 10) y = 10;
+    if (x > maxX) x = maxX;
+    if (y > maxY) y = maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  }
+
+  // Desktop
+  noBtn.addEventListener("mouseenter", moveNo);
+
+  // Mobile
+  noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveNo();
+  });
+
+  yesBtn.addEventListener("click", () => {
+    box.innerHTML = `
+      <h1 style="color:#ff4d88; margin-top:70px;">
+        Yesss 💖😍<br><br>
+        I knew it!
+      </h1>
+    `;
+  });
+</script>
+
+</body>
+</html>
